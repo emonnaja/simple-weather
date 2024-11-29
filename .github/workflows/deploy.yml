@@ -20,10 +20,6 @@ concurrency:
   group: 'pages'
   cancel-in-progress: true
 
-  # Allow repo secrets
-  env:
-   VITE_WEATHER_API_KEY : ${{secrets.VITE_WEATHER_API_KEY}}
-
 jobs:
   # Single deploy job since we're just deploying
   deploy:
@@ -31,6 +27,11 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    
+    # Define environment variables here
+    env:
+      VITE_WEATHER_API_KEY: ${{ secrets.VITE_WEATHER_API_KEY }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
